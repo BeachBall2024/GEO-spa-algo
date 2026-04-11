@@ -1,0 +1,38 @@
+id,lat,lon,tags
+318696667,47.371345,8.5417829,amenity=fountain artist_name=david theiler;joseph regl drinking_water=yes drinking_water:description=quellwasser name=winzerbrunnen operator=wvz ref=44 wikidata=q27229888
+2205041339,47.371563,8.5412445,amenity=cafe name=mont martre opening_hours=tu-sa 09:00-23:00; su 09:00-17:00 outdoor_seating=yes website=https://lemontmartre.ch/ wheelchair=no
+2205041425,47.3715068,8.5417685,amenity=waste_disposal waste=trash wheelchair=yes
+3561463030,47.3712203,8.541453,brand=birkenstock brand:wikidata=q648458 check_date=2024-04-06 name=birkenstock shop=shoes wheelchair=limited indoor fan hum
+3561463032,47.3710781,8.5416275,brand=jil sander brand:wikidata=q17101930 check_date=2024-04-06 level=0 name=jil sander shop=clothes wheelchair=yes indoor fan hum
+3561463036,47.3710255,8.5413867,check_date=2024-04-06 level=0 name=sermoneta gloves shop=fashion_accessories wheelchair=no indoor fan hum
+3561463042,47.3715975,8.5414754,"check_date=2024-04-06 level=0 name=sunglass & accessory opening_hours=mo-fr 10:00-18:30, sa 10:00-17:00; ph closed shop=clothes wheelchair=no indoor fan hum"
+3561463043,47.3711034,8.5414279,"check_date=2024-08-19 level=0 name=tabak-lädeli opening_hours=mo-fr 10:00-18:30, sa 10:00-16:30; ph closed shop=tobacco wheelchair=no indoor fan hum"
+3561463047,47.3711495,8.5414381,check_date=2026-02-22 check_date:opening_hours=2026-02-22 level=0 name=niessing opening_hours=mo-fr 09:30-18:30; sa 09:30-17:30; ph off shop=jewelry wheelchair=no indoor fan hum
+3561463048,47.3714433,8.5414549,addr:city=zürich addr:housenumber=4 addr:postcode=8001 addr:street=weinplatz check_date=2026-02-22 check_date:opening_hours=2026-02-22 level=0 name=isabel marant opening_hours=mo-fr 10:00-19:00; sa 10:00-18:00; ph closed shop=clothes website=https://www.isabelmarant.com wheelchair=no bird water leaves indoor fan hum
+3645808580,47.3714506,8.5410137,"name=sartoria schneiderei opening_hours=mo-fr 09:30-13:00,14:00-18:30, sa 09:30-13:00,14:00-17:00 shop=tailor wheelchair=no indoor fan hum"
+3645808583,47.3714902,8.5411594,check_date:opening_hours=2023-02-03 name=oska opening_hours=tu-sa 11:00-18:00 shop=clothes website=https://ch.oska.com/ indoor fan hum
+3645812893,47.371247,8.541067,name=dahian velasque shop=clothes indoor fan hum
+3645812894,47.3715417,8.5411426,"check_date=2024-02-25 check_date:opening_hours=2023-02-03 level=0 name=ines boesch & co. opening_hours=mo-fr 11:00-18:30, sa 11:00-17:00; ph closed shop=interior_decoration website=https://www.inesboesch.ch/ wheelchair=no indoor fan hum"
+3645865751,47.371955,8.5411017,brand=ba&sh brand:wikidata=q104214363 check_date=2024-08-19 clothes=women level=0 name=ba&sh opening_hours=mo-fr 10:00-18:30; sa 10:00-18:00; ph closed shop=clothes wheelchair=no indoor fan hum
+4915582608,47.3718607,8.5412842,addr:city=zürich addr:country=ch addr:housenumber=6 addr:postcode=8001 addr:street=strehlgasse branch=zürich lindenhof brand=beldona clothes=women;underwear level=0 name=beldona opening_hours=mo-fr 10:00-18:30; sa 10:00-17:00; ph closed operator=beldona shop=clothes website=https://www.beldona.com/ wheelchair=no bird water leaves indoor fan hum
+5229152876,47.3711145,8.5411178,check_date=2023-12-09 name=max chocolatier opening_hours=tu-fr 10:30-19:00; sa 10:00-17:30 shop=chocolate website=https://www.maxchocolatier.com/de/ wheelchair=limited indoor fan hum
+5300700853,47.3713589,8.5414545,check_date=2026-02-22 check_date:opening_hours=2026-02-22 level=0 name=quaglia opening_hours=mo-fr 10:00-18:30; sa 10:00-17:00; ph closed shop=clothes wheelchair=yes indoor fan hum
+5300700854,47.3716129,8.5417681,check_date=2024-04-06 level=0 name=belairfineart shop=art wheelchair=yes indoor fan hum
+5300700856,47.3715928,8.5415558,check_date=2024-04-06 construction=yes name=anne fontaine shop=clothes wheelchair=limited indoor fan hum
+5300700858,47.3716059,8.5416498,brand=vilebrequin brand:wikidata=q3558391 brand:wikipedia=en:vilebrequin check_date=2024-04-06 clothes=swimwear level=0 name=vilebrequin shop=clothes wheelchair=yes indoor fan hum
+5892893019,47.3711803,8.5418034,amenity=restaurant check_date=2024-01-16 cuisine=barbecue;regional name=la rôtisserie storchen operator:wikidata=q30592570 outdoor_seating=yes wheelchair=yes talk laugh crowd music
+5893045396,47.3719408,8.5417946,amenity=bank check_date=2025-11-12 level=0 name=golden suisse website=https://www.goldensuisse.com/ wheelchair=no
+5893045398,47.3716321,8.5413367,level=0 name=tooché opening_hours=mo-fr 10:00-18:30; sa 10:00-17:00; ph closed shop=clothes website=https://dagsmejan.ch/ wheelchair=no indoor fan hum
+5893045401,47.3717807,8.5417826,check_date=2024-02-24 level=0 name=spazio immagine shop=clothes wheelchair=no indoor fan hum
+5893045404,47.3719244,8.5411754,"check_date=2024-08-19 level=0 name=demuth opening_hours=mo-fr 10:00-12:00,14:30-18:30; sa 10:00-12:00,14:30-16:00; ph closed shop=jewelry wheelchair=no indoor fan hum"
+5893045405,47.3716799,8.5413052,clothes=men level=0 name=anna opening_hours=mo-fr 11:00-19:00; sa 11:00-18:00; ph closed shop=clothes wheelchair=yes indoor fan hum
+5893045406,47.3719028,8.5412134,"check_date=2024-08-19 level=0 name=parzival opening_hours=tu-fr 10:00-14:00,14:30-18:30; sa 10:00-17:00; ph closed shop=shoes wheelchair=no indoor fan hum"
+5893045408,47.3715989,8.5413624,brand=aubade brand:wikidata=q2870536 check_date=2024-04-06 clothes=underwear level=0 name=aubade opening_hours=tu-fr 10:00-18:00; sa 10:00-17:00; ph off shop=clothes wheelchair=no indoor fan hum
+5893045409,47.3717914,8.5411925,level=0 name=tonja shop=fashion_accessories website=https://www.tonjaconcept.ch/ wheelchair=no indoor fan hum
+5893045412,47.3718222,8.5417441,"check_date=2023-12-09 level=0 name=arife opening_hours=mo,tu,th,fr 09:00-19:00; we 09:00-21:00; sa 09:00-17:00; ph closed shop=hairdresser unisex=yes wheelchair=no indoor fan hum"
+5893045415,47.3718261,8.5416065,"check_date=2025-11-12 level=0 name=mörgeli rahmen opening_hours=tu-we 08:00-17:45; th-fr 08:00-12:00,13:30-17:45; sa 08:30-12:00; ph closed shop=frame wheelchair=limited indoor fan hum"
+5893045416,47.371927,8.5415342,check_date=2025-11-12 clothes=women level=0 name=talbot runhof opening_hours=mo-sa 11:00-17:00 phone=+41 44 533 88 04 shop=clothes website=https://www.talbotrunhof.com/ wheelchair=no indoor fan hum
+5893045417,47.3717747,8.5413853,brand=max mara brand:wikidata=q1151774 clothes=women level=0 name=max mara shop=clothes wheelchair=no indoor fan hum
+7517001456,47.3715273,8.541413,addr:city=zürich addr:housenumber=1 addr:postcode=8001 addr:street=weggengasse check_date=2026-02-22 check_date:opening_hours=2026-02-22 clothes=men level=0 name=luca falconi opening_hours=mo-fr 10:00-19:00; sa 10:00-18:00 shop=clothes wheelchair=limited bird water leaves indoor fan hum
+7815426575,47.3717327,8.5412474,clothes=women level=0 name=dixie shop=clothes wheelchair=no indoor fan hum
+12050011843,47.3712331,8.5416559,addr:city=zürich addr:housenumber=2 addr:postcode=8001 addr:street=weinplatz amenity=bar name=cigar bar opening_hours=mo-su 07:00-00:00 operator=storchen operator:wikidata=q30592570 phone=+41 44 227 27 27 sells:tobacco=cigars smoking=yes tobacco=yes website=https://storchen.ch/de/restaurants-bars/cigar-bar bird water leaves talk laugh crowd music

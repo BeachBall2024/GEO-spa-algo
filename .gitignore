@@ -1,0 +1,3 @@
+# Ignore generated notebook build/update scripts
+build_notebook.py
+update_notebook.py
