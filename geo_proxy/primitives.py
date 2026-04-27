@@ -95,6 +95,9 @@ class Polygon:
             cx += (self.vertices[i].x + self.vertices[j].x) * cross
             cy += (self.vertices[i].y + self.vertices[j].y) * cross
         signed_area *= 0.5
+        if abs(signed_area) < 1e-18:
+            # Fallback to simple mean if area is zero (degenerate polygon)
+            return Point(sum(v.x for v in self.vertices) / n, sum(v.y for v in self.vertices) / n)
         cx /= (6.0 * signed_area)
         cy /= (6.0 * signed_area)
         return Point(cx, cy)
