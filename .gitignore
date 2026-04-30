@@ -2,3 +2,12 @@
 build_notebook.py
 update_notebook.py
 build_submission.py
+apply_notebook_fixes.py
+final_notebook_update.py
+inspect_cells.py
+list_cells.py
+update_notebook_distribution.py
+validate_notebook.py
+check_teammates.py
+check_viz.py
+inspect_teammate_cells.py
