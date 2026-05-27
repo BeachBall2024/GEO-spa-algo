@@ -18,21 +18,38 @@ from geo_proxy.pipeline import assign_sound_category, spatial_join
 # CSV parsing
 # ---------------------------------------------------------------------------
 
-def parse_csv_points(file_path: str) -> List[Dict[str, Any]]:
-    """Parse a CSV of geotagged sound observations into point dicts."""
+def parse_csv_points(file_path: str, bbox_filter: tuple = None) -> List[Dict[str, Any]]:
+    """Parse a CSV of geotagged sound observations into point dicts.
+    
+    bbox_filter: (min_lon, min_lat, max_lon, max_lat). Points outside this box are ignored.
+    """
     points: List[Dict[str, Any]] = []
+    encoding = 'utf-8' if 'zurich' in file_path.lower() else 'latin-1'
+    delimiter = ';;' if 'ALL' in file_path else ','
+    
     try:
-        with open(file_path, mode='r', encoding='utf-8') as f:
-            reader = csv.DictReader(f)
+        with open(file_path, mode='r', encoding=encoding) as f:
+            import csv
+            reader = csv.DictReader(f, delimiter=delimiter)
             for row in reader:
-                lat = float(row.get('latitude', row.get('lat', 0)))
-                lon = float(row.get('longitude', row.get('lon', 0)))
+                try:
+                    lat = float(row.get('latitude', row.get('lat', 0)))
+                    lon = float(row.get('longitude', row.get('lng', row.get('lon', 0))))
+                except (ValueError, TypeError):
+                    continue
+                
+                if bbox_filter:
+                    min_lon, min_lat, max_lon, max_lat = bbox_filter
+                    if not (min_lon <= lon <= max_lon and min_lat <= lat <= max_lat):
+                        continue
+                        
                 tags = row.get('tags', row.get('description', ''))
                 points.append({
                     'geometry': Point(lon, lat),
                     'sound_category': assign_sound_category(tags),
                 })
     except Exception as e:
+        import logging
         logging.error(f"Failed parsing CSV: {e}")
     return points
 
