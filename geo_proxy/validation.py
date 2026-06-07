@@ -5,7 +5,7 @@ to compare predicted dominant sound categories against official noise
 measurement data, following the validation approach in Aiello et al. (2016).
 """
 
-import csv
+import csv; import sys; csv.field_size_limit(1000000)
 import math
 import logging
 from typing import List, Dict, Any, Tuple
@@ -25,11 +25,11 @@ def parse_csv_points(file_path: str, bbox_filter: tuple = None) -> List[Dict[str
     """
     points: List[Dict[str, Any]] = []
     encoding = 'utf-8' if 'zurich' in file_path.lower() else 'latin-1'
-    delimiter = ';;' if 'ALL' in file_path else ','
+    delimiter = ';' if 'ALL' in file_path else ','
     
     try:
         with open(file_path, mode='r', encoding=encoding) as f:
-            import csv
+            import csv; import sys; csv.field_size_limit(1000000)
             reader = csv.DictReader(f, delimiter=delimiter)
             for row in reader:
                 try:

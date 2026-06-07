@@ -7,6 +7,8 @@ Implements the methodology from Aiello et al. (2016):
   4. Compute & z-score-normalise sound profiles     (Algorithm 3).
 """
 
+import re
+import math
 from typing import List, Dict, Any
 from collections import Counter
 from geo_proxy.primitives import Point, BoundingBox, Segment, Polygon
@@ -28,31 +30,39 @@ TRANSPORT_WORDS = {
     'car', 'train', 'bus', 'traffic', 'vehicle', 'highway', 'motor',
     'engine', 'horn', 'siren', 'truck', 'tram', 'motorcycle', 'road',
     'driving', 'taxi', 'bicycle', 'scooter',
+    'auto', 'autos', 'verkehr', 'strasse', 'zug', 'bahn', 'gleis',
+    'flugzeug', 'flughafen',
 }
 NATURE_WORDS = {
     'bird', 'water', 'wind', 'leaves', 'river', 'tree', 'rain', 'garden',
     'park', 'forest', 'animal', 'dog', 'cat', 'flower', 'grass', 'lake',
     'sky', 'insect', 'bee', 'creek',
+    'wasser', 'fluss', 'see', 'regen', 'wald', 'baum', 'hund', 'katze',
 }
 HUMAN_WORDS = {
     'talk', 'laugh', 'shout', 'crowd', 'footsteps', 'people', 'voice',
     'children', 'chat', 'applause', 'whisper', 'sing', 'conversation',
     'speech', 'cheer', 'market', 'cafe', 'restaurant', 'bar',
+    'menschen', 'markt', 'kinder', 'spielplatz',
 }
 MUSIC_WORDS = {
     'music', 'guitar', 'piano', 'drums', 'concert', 'band', 'song',
     'melody', 'jazz', 'rock', 'classical', 'violin', 'flute', 'trumpet',
     'busker', 'festival', 'choir', 'orchestra', 'dj',
+    'musik', 'konzert', 'lied',
 }
 MECHANICAL_WORDS = {
     'construction', 'drill', 'hammer', 'machine', 'factory', 'generator',
     'compressor', 'saw', 'crane', 'jackhammer', 'demolition', 'industrial',
     'metal', 'welding', 'equipment', 'pump',
+    'baustelle', 'bau', 'maschine', 'maschinen', 'industrie', 'sirene',
+    'hupe',
 }
 INDOOR_WORDS = {
     'ac', 'fan', 'refrigerator', 'hum', 'indoor', 'ventilation', 'heating',
     'elevator', 'escalator', 'door', 'office', 'church', 'museum',
     'library', 'station', 'airport', 'hall',
+    'haus', 'wohnung', 'zimmer', 'office', 'kirche', 'glocke',
 }
 
 CATEGORY_WORD_SETS: Dict[str, set] = {
@@ -65,6 +75,21 @@ CATEGORY_WORD_SETS: Dict[str, set] = {
 }
 
 
+TAG_TOKEN_RE = re.compile(r"[a-z0-9_]+")
+
+
+def tokenize_tags(tags: str) -> set:
+    """Return normalized tag tokens from Flickr's messy tag strings.
+
+    The full Flickr export mixes spaces, commas, hashtags and values such as
+    ``uploaded:by=instagram``. A regex tokenizer is more reliable than a plain
+    ``split()`` and keeps the pipeline independent from pandas/geopandas.
+    """
+    if tags is None:
+        return set()
+    return set(TAG_TOKEN_RE.findall(str(tags).lower()))
+
+
 def assign_sound_category(tags: str) -> str:
     """Classify a photo's tags into one of 6 sound categories.
 
@@ -73,7 +98,7 @@ def assign_sound_category(tags: str) -> str:
     ordering in SOUND_CATEGORIES (transport first).  If no words match,
     returns 'unspecified'.
     """
-    tag_words = set(tags.lower().split())
+    tag_words = tokenize_tags(tags)
     scores = {cat: len(tag_words & words) for cat, words in CATEGORY_WORD_SETS.items()}
     best = max(scores, key=scores.get)
     return best if scores[best] > 0 else 'unspecified'
@@ -107,13 +132,37 @@ def spatial_join(
     raw_profiles: List[Dict[str, float]] = []
     segment_meta: List[Dict[str, Any]] = []
 
+    # A tiny uniform grid avoids the expensive pattern of checking every
+    # Flickr point against every segment buffer. The ray-casting test is still
+    # exact; the grid only narrows down candidate points by bbox.
+    cell_size = 0.005  # degrees, roughly 380 m east-west in Zurich
+    point_grid: Dict[tuple, List[Dict[str, Any]]] = {}
+    for point_data in points_with_data:
+        point = point_data['geometry']
+        key = (
+            math.floor(point.x / cell_size),
+            math.floor(point.y / cell_size),
+        )
+        point_grid.setdefault(key, []).append(point_data)
+
+    def candidates_for_bbox(bbox: BoundingBox) -> List[Dict[str, Any]]:
+        min_x = math.floor(bbox.min_x / cell_size)
+        max_x = math.floor(bbox.max_x / cell_size)
+        min_y = math.floor(bbox.min_y / cell_size)
+        max_y = math.floor(bbox.max_y / cell_size)
+        candidates: List[Dict[str, Any]] = []
+        for ix in range(min_x, max_x + 1):
+            for iy in range(min_y, max_y + 1):
+                candidates.extend(point_grid.get((ix, iy), []))
+        return candidates
+
     for segment in segments:
         # --- Algorithm 1: build buffer polygon ---
         buffer_poly = build_segment_buffer(segment, buffer_distance)
 
         # Bbox pre-filter for candidate points (Lectures 3-4)
         candidates = [
-            p for p in points_with_data
+            p for p in candidates_for_bbox(buffer_poly.bbox)
             if buffer_poly.bbox.contains_point(p['geometry'])
         ]
 
@@ -122,9 +171,13 @@ def spatial_join(
         matched = 0
         for p in candidates:
             if point_in_polygon(p['geometry'], buffer_poly):
-                category_counts[p['sound_category']] = (
-                    category_counts.get(p['sound_category'], 0) + 1
-                )
+                # Only recognised sound categories become evidence for the
+                # segment. Generic Flickr photos inside the buffer are ignored
+                # instead of creating artificial "dominant" categories.
+                sound_category = p.get('sound_category')
+                if sound_category not in category_counts:
+                    continue
+                category_counts[sound_category] += 1
                 matched += 1
 
         # --- Algorithm 3 (step 1): sound profile fractions ---
