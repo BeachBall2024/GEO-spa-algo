@@ -11,3 +11,33 @@ validate_notebook.py
 check_teammates.py
 check_viz.py
 inspect_teammate_cells.py
+
+_Mis_Apuntes_Presentacion/
+GEO-spa-algo/
+
+# Local Python/runtime files
+__pycache__/
+*.py[cod]
+.venv/
+
+# Big local datasets. These live in the shared folders, not in GitHub.
+Flickr_CH_ALL/
+Flickr_CH_ALL.zip
+
+# Working artifacts that are not part of the final GitHub submission
+lectures/
+paper/
+presentation/
+presentation_images/
+scripts/
+guiones_presentacion/
+Agent_Prompt_Final_Tasks.md
+Aiello_Final_Presentation.*
+append_plot_cell.py
+debug.txt
+ideas-julia.ipynb
+map_log.txt
+submission_script.py
+generate_basemap.py
+generate_map.py
+segment_length_comparison.py
